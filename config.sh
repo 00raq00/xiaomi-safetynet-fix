@@ -31,7 +31,7 @@ MODID=xiaomi-safetynet-fix
 
 # Set to true if you need to enable Magic Mount
 # Most mods would like it to be enabled
-AUTOMOUNT=false
+AUTOMOUNT=true
 
 # Set to true if you need to load system.prop
 PROPFILE=false
@@ -50,7 +50,7 @@ LATESTARTSERVICE=false
 
 print_modname() {
   ui_print "*******************************"
-  ui_print "Universal SafetyNet Fix v1.10.1"
+  ui_print "Universal SafetyNet Fix v2 Beta 5"
   ui_print "*******************************"
 }
 
@@ -98,4 +98,16 @@ set_permissions() {
   # set_perm  $MODPATH/system/bin/app_process32   0       2000    0755         u:object_r:zygote_exec:s0
   # set_perm  $MODPATH/system/bin/dex2oat         0       2000    0755         u:object_r:dex2oat_exec:s0
   # set_perm  $MODPATH/system/lib/libart.so       0       0       0644
+
+    [ "$ARCH" == "arm64" ] && ARCH=arm
+
+    cp -af $INSTALLER/common/$ARCH/busybox $MODPATH/busybox
+
+    cp -af $INSTALLER/common/magiskhide $MODPATH
+
+    chmod 755 $MODPATH/busybox
+
+    chmod -R 755 $MODPATH/magiskhide
+
+    chmod 755 $MODPATH/system/xbin/usnf
 }
